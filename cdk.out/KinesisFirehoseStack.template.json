@@ -179,7 +179,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11Py27CMBD8ltydJQTEuQKkXlqpgg+oXGcJSxxv5HWokJV/x3m0B04zOzPa2S2h3EAsMv0ruama3NIPxHPQplFJ+o6S3H1vGgzqcHEzGxTpFuKJLY7ihF9syTzGcWaDslwLxA+u3z333ej880TOwaNuF3UeBtWQQyG5kMcrC0Jyj2jpjv7xF0nSp+46cvVUjcK9N9MZB3YVBWI3qCLXtrtqKLK35a/ViC/rl9Brg+MK4Sar+3oH6y2U2U2Ict+7QC3CacYnUaJ0iDcBAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11PzW7CMAx+Fu6pKSB2RmMSFyZN8ABTSE1xm8ZVnDKhqO++9AcOnL4/67O9hvUGYr7Qf5KZos4sXSCegza1StZvlJR+dqbGoPZXN7FekW4gntjiYI74w5bMY5AT65XlUiAeuTx47tohefFEzsGjbmZ3Er2qyaGQXMnjjQUhpV9o6Y7+8RxJ1rduW3LluBqFO2/GM/bsCgrErld5pm1705AvdvNfywHf6ueh9w2OC4RKlvfVB6y2qaMSosx3LlCDcJrwH/YOASc3AQAA"
    },
    "Metadata": {
     "aws:cdk:path": "KinesisFirehoseStack/CDKMetadata/Default"
