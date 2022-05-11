@@ -1,0 +1,19 @@
+{
+  "version": "18.0.0",
+  "files": {
+    "c6f6115a213a8d4aa8d4002e5102a0bf509fe6b1638faa7bdc3b74766fc91f4a": {
+      "source": {
+        "path": "KinesisFirehoseStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "c6f6115a213a8d4aa8d4002e5102a0bf509fe6b1638faa7bdc3b74766fc91f4a.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

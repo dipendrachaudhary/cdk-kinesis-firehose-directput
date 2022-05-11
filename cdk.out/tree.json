@@ -1,0 +1,338 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.1.5"
+        }
+      },
+      "KinesisFirehoseStack": {
+        "id": "KinesisFirehoseStack",
+        "path": "KinesisFirehoseStack",
+        "children": {
+          "kinesis-bucket": {
+            "id": "kinesis-bucket",
+            "path": "KinesisFirehoseStack/kinesis-bucket",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "KinesisFirehoseStack/kinesis-bucket/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {}
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                  "version": "2.23.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.Bucket",
+              "version": "2.23.0"
+            }
+          },
+          "firehose": {
+            "id": "firehose",
+            "path": "KinesisFirehoseStack/firehose",
+            "children": {
+              "Service Role": {
+                "id": "Service Role",
+                "path": "KinesisFirehoseStack/firehose/Service Role",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KinesisFirehoseStack/firehose/Service Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "firehose.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.23.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.23.0"
+                }
+              },
+              "S3 Destination Role": {
+                "id": "S3 Destination Role",
+                "path": "KinesisFirehoseStack/firehose/S3 Destination Role",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KinesisFirehoseStack/firehose/S3 Destination Role/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "firehose.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.23.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "KinesisFirehoseStack/firehose/S3 Destination Role/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KinesisFirehoseStack/firehose/S3 Destination Role/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "s3:Abort*",
+                                    "s3:DeleteObject*",
+                                    "s3:GetBucket*",
+                                    "s3:GetObject*",
+                                    "s3:List*",
+                                    "s3:PutObject",
+                                    "s3:PutObjectLegalHold",
+                                    "s3:PutObjectRetention",
+                                    "s3:PutObjectTagging",
+                                    "s3:PutObjectVersionTagging"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "kinesisbucket14554DA9",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "kinesisbucket14554DA9",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "logs:CreateLogStream",
+                                    "logs:PutLogEvents"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::GetAtt": [
+                                      "firehoseLogGroupE90325F9",
+                                      "Arn"
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "firehoseS3DestinationRoleDefaultPolicy935071E9",
+                            "roles": [
+                              {
+                                "Ref": "firehoseS3DestinationRole47347320"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.23.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.23.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.23.0"
+                }
+              },
+              "LogGroup": {
+                "id": "LogGroup",
+                "path": "KinesisFirehoseStack/firehose/LogGroup",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "KinesisFirehoseStack/firehose/LogGroup/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "retentionInDays": 731
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_logs.CfnLogGroup",
+                      "version": "2.23.0"
+                    }
+                  },
+                  "S3Destination": {
+                    "id": "S3Destination",
+                    "path": "KinesisFirehoseStack/firehose/LogGroup/S3Destination",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "KinesisFirehoseStack/firehose/LogGroup/S3Destination/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Logs::LogStream",
+                          "aws:cdk:cloudformation:props": {
+                            "logGroupName": {
+                              "Ref": "firehoseLogGroupE90325F9"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_logs.CfnLogStream",
+                          "version": "2.23.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_logs.LogStream",
+                      "version": "2.23.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_logs.LogGroup",
+                  "version": "2.23.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "KinesisFirehoseStack/firehose/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::KinesisFirehose::DeliveryStream",
+                  "aws:cdk:cloudformation:props": {
+                    "deliveryStreamType": "DirectPut",
+                    "extendedS3DestinationConfiguration": {
+                      "cloudWatchLoggingOptions": {
+                        "enabled": true,
+                        "logGroupName": {
+                          "Ref": "firehoseLogGroupE90325F9"
+                        },
+                        "logStreamName": {
+                          "Ref": "firehoseLogGroupS3DestinationC8AA3F32"
+                        }
+                      },
+                      "roleArn": {
+                        "Fn::GetAtt": [
+                          "firehoseS3DestinationRole47347320",
+                          "Arn"
+                        ]
+                      },
+                      "bucketArn": {
+                        "Fn::GetAtt": [
+                          "kinesisbucket14554DA9",
+                          "Arn"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_kinesisfirehose.CfnDeliveryStream",
+                  "version": "2.23.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-kinesisfirehose-alpha.DeliveryStream",
+              "version": "2.23.0-alpha.0"
+            }
+          },
+          "@aws-cdk--aws-kinesisfirehose.CidrBlocks": {
+            "id": "@aws-cdk--aws-kinesisfirehose.CidrBlocks",
+            "path": "KinesisFirehoseStack/@aws-cdk--aws-kinesisfirehose.CidrBlocks",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnMapping",
+              "version": "2.23.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "KinesisFirehoseStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "KinesisFirehoseStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.23.0"
+                }
+              },
+              "Condition": {
+                "id": "Condition",
+                "path": "KinesisFirehoseStack/CDKMetadata/Condition",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnCondition",
+                  "version": "2.23.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.1.5"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.23.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.23.0"
+    }
+  }
+}

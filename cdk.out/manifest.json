@@ -1,0 +1,118 @@
+{
+  "version": "18.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "KinesisFirehoseStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "KinesisFirehoseStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "KinesisFirehoseStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "KinesisFirehoseStack.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c6f6115a213a8d4aa8d4002e5102a0bf509fe6b1638faa7bdc3b74766fc91f4a.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "KinesisFirehoseStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "KinesisFirehoseStack.assets"
+      ],
+      "metadata": {
+        "/KinesisFirehoseStack/kinesis-bucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "kinesisbucket14554DA9"
+          }
+        ],
+        "/KinesisFirehoseStack/firehose/Service Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "firehoseServiceRoleE01E93F7"
+          }
+        ],
+        "/KinesisFirehoseStack/firehose/S3 Destination Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "firehoseS3DestinationRole47347320"
+          }
+        ],
+        "/KinesisFirehoseStack/firehose/S3 Destination Role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "firehoseS3DestinationRoleDefaultPolicy935071E9"
+          }
+        ],
+        "/KinesisFirehoseStack/firehose/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "firehoseLogGroupE90325F9"
+          }
+        ],
+        "/KinesisFirehoseStack/firehose/LogGroup/S3Destination/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "firehoseLogGroupS3DestinationC8AA3F32"
+          }
+        ],
+        "/KinesisFirehoseStack/firehose/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "firehose8FCE0060"
+          }
+        ],
+        "/KinesisFirehoseStack/@aws-cdk--aws-kinesisfirehose.CidrBlocks": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awscdkawskinesisfirehoseCidrBlocks"
+          }
+        ],
+        "/KinesisFirehoseStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/KinesisFirehoseStack/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/KinesisFirehoseStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/KinesisFirehoseStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "KinesisFirehoseStack"
+    }
+  }
+}
