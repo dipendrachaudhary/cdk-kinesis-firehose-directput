@@ -71,10 +71,10 @@ export class RedshiftStack extends Stack {
             masterUsername: 'redshift',
             nodeType: 'ra3.4xlarge',
             numberOfNodes: 2,
-            iamRoles: [role.roleArn]
-
+            iamRoles: [role.roleArn],
 
         });
+
 
     }
 }
