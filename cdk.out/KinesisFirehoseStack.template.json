@@ -176,10 +176,504 @@
     "aws:cdk:path": "KinesisFirehoseStack/firehose/Resource"
    }
   },
+  "RedshiftFederatedQueryRoleDDD29AF1": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "redshift.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/Redshift-Federated-Query-Role/Resource"
+   }
+  },
+  "TheVPC92636AB0": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "reshift-vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/Resource"
+   }
+  },
+  "TheVPCPublicSubnet1Subnet770D4FF2": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "TheVPC92636AB0"
+    },
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "KinesisFirehoseStack/TheVPC/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PublicSubnet1/Subnet"
+   }
+  },
+  "TheVPCPublicSubnet1RouteTable17DA183D": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "TheVPC92636AB0"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "KinesisFirehoseStack/TheVPC/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PublicSubnet1/RouteTable"
+   }
+  },
+  "TheVPCPublicSubnet1RouteTableAssociationE5186D77": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "TheVPCPublicSubnet1RouteTable17DA183D"
+    },
+    "SubnetId": {
+     "Ref": "TheVPCPublicSubnet1Subnet770D4FF2"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "TheVPCPublicSubnet1DefaultRoute6D26543F": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "TheVPCPublicSubnet1RouteTable17DA183D"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "TheVPCIGWFA25CC08"
+    }
+   },
+   "DependsOn": [
+    "TheVPCVPCGWC9B93E30"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "TheVPCPublicSubnet1EIP4412F690": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "KinesisFirehoseStack/TheVPC/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PublicSubnet1/EIP"
+   }
+  },
+  "TheVPCPublicSubnet1NATGatewayC61D892B": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "SubnetId": {
+     "Ref": "TheVPCPublicSubnet1Subnet770D4FF2"
+    },
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "TheVPCPublicSubnet1EIP4412F690",
+      "AllocationId"
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "KinesisFirehoseStack/TheVPC/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PublicSubnet1/NATGateway"
+   }
+  },
+  "TheVPCPublicSubnet2Subnet73F96DA9": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "TheVPC92636AB0"
+    },
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.64.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "KinesisFirehoseStack/TheVPC/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PublicSubnet2/Subnet"
+   }
+  },
+  "TheVPCPublicSubnet2RouteTable3609F42C": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "TheVPC92636AB0"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "KinesisFirehoseStack/TheVPC/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PublicSubnet2/RouteTable"
+   }
+  },
+  "TheVPCPublicSubnet2RouteTableAssociationB4B0A733": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "TheVPCPublicSubnet2RouteTable3609F42C"
+    },
+    "SubnetId": {
+     "Ref": "TheVPCPublicSubnet2Subnet73F96DA9"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "TheVPCPublicSubnet2DefaultRouteFEB062B2": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "TheVPCPublicSubnet2RouteTable3609F42C"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "TheVPCIGWFA25CC08"
+    }
+   },
+   "DependsOn": [
+    "TheVPCVPCGWC9B93E30"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "TheVPCPublicSubnet2EIP5AAFF9FA": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "KinesisFirehoseStack/TheVPC/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PublicSubnet2/EIP"
+   }
+  },
+  "TheVPCPublicSubnet2NATGatewayB437CFAF": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "SubnetId": {
+     "Ref": "TheVPCPublicSubnet2Subnet73F96DA9"
+    },
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "TheVPCPublicSubnet2EIP5AAFF9FA",
+      "AllocationId"
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "KinesisFirehoseStack/TheVPC/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PublicSubnet2/NATGateway"
+   }
+  },
+  "TheVPCPrivateSubnet1Subnet571D3690": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "TheVPC92636AB0"
+    },
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.128.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "KinesisFirehoseStack/TheVPC/PrivateSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PrivateSubnet1/Subnet"
+   }
+  },
+  "TheVPCPrivateSubnet1RouteTableF6513BC2": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "TheVPC92636AB0"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "KinesisFirehoseStack/TheVPC/PrivateSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PrivateSubnet1/RouteTable"
+   }
+  },
+  "TheVPCPrivateSubnet1RouteTableAssociation46F1FFFC": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "TheVPCPrivateSubnet1RouteTableF6513BC2"
+    },
+    "SubnetId": {
+     "Ref": "TheVPCPrivateSubnet1Subnet571D3690"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "TheVPCPrivateSubnet1DefaultRouteD1B9E467": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "TheVPCPrivateSubnet1RouteTableF6513BC2"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "TheVPCPublicSubnet1NATGatewayC61D892B"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "TheVPCPrivateSubnet2SubnetCC3D7013": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "TheVPC92636AB0"
+    },
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.192.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "KinesisFirehoseStack/TheVPC/PrivateSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PrivateSubnet2/Subnet"
+   }
+  },
+  "TheVPCPrivateSubnet2RouteTable9AC81FAC": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "TheVPC92636AB0"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "KinesisFirehoseStack/TheVPC/PrivateSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PrivateSubnet2/RouteTable"
+   }
+  },
+  "TheVPCPrivateSubnet2RouteTableAssociation336D47D1": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "TheVPCPrivateSubnet2RouteTable9AC81FAC"
+    },
+    "SubnetId": {
+     "Ref": "TheVPCPrivateSubnet2SubnetCC3D7013"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "TheVPCPrivateSubnet2DefaultRoute52A1F245": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "TheVPCPrivateSubnet2RouteTable9AC81FAC"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "TheVPCPublicSubnet2NATGatewayB437CFAF"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "TheVPCIGWFA25CC08": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "reshift-vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/IGW"
+   }
+  },
+  "TheVPCVPCGWC9B93E30": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "VpcId": {
+     "Ref": "TheVPC92636AB0"
+    },
+    "InternetGatewayId": {
+     "Ref": "TheVPCIGWFA25CC08"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/TheVPC/VPCGW"
+   }
+  },
+  "redshift": {
+   "Type": "AWS::Redshift::Cluster",
+   "Properties": {
+    "ClusterType": "multi-node",
+    "DBName": "dev",
+    "MasterUsername": "redshift",
+    "MasterUserPassword": "Redshift123",
+    "NodeType": "ra3.4xlarge",
+    "IamRoles": [
+     {
+      "Fn::GetAtt": [
+       "RedshiftFederatedQueryRoleDDD29AF1",
+       "Arn"
+      ]
+     }
+    ],
+    "NumberOfNodes": 2
+   },
+   "Metadata": {
+    "aws:cdk:path": "KinesisFirehoseStack/redshift"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11PzW7CMAx+Fu6pKSB2RmMSFyZN8ABTSE1xm8ZVnDKhqO++9AcOnL4/67O9hvUGYr7Qf5KZos4sXSCegza1StZvlJR+dqbGoPZXN7FekW4gntjiYI74w5bMY5AT65XlUiAeuTx47tohefFEzsGjbmZ3Er2qyaGQXMnjjQUhpV9o6Y7+8RxJ1rduW3LluBqFO2/GM/bsCgrErld5pm1705AvdvNfywHf6ueh9w2OC4RKlvfVB6y2qaMSosx3LlCDcJrwH/YOASc3AQAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12RX0+DMBTFP8veS7eh8dmJZlmihoDZqynlbtxRWtI/LAvhu9ta3NSn+7vnnsLtaUrTOzquFuxsEl63icCKjqVlvCVe+hyNnz453oIl2UFGmgiyjo6FEhDE75orgfwS2kgTEepo6PiqjlutXB8mV/ZQWg2sm9XYTKRFCQbNATU0ygD102cQOIC+zH7gKR33PQ8H93lGclf5v5WuknHBGxXKWfhgVdwx6jdtY4ziyCwqeTUHeNnlobwzu2UWzuxCco2Dx9uHd9KC9vxjiJvM3cb66JoOpA9JQ20aPNhwjUw4449Nwf3G+h7lkRRglNM8ZviLMyVrDJtNZJUw0TeMrhaP8wMtQ/2X02z6G9VEpKqBnsxyWD/Q9T1NFyeDmGgnLXZAi1i/ANpnJvsAAgAA"
    },
    "Metadata": {
     "aws:cdk:path": "KinesisFirehoseStack/CDKMetadata/Default"

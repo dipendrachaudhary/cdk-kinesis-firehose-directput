@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/b6f840927e921cf953fe1ec5ade7660e16bd58126e5b43122fa74209296d67a4.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/f97735b40ded3572db1b588ff1e96207aeb96a5f15422c62f3f28edd6f2c8e96.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -85,6 +85,156 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "awscdkawskinesisfirehoseCidrBlocks"
+          }
+        ],
+        "/KinesisFirehoseStack/Redshift-Federated-Query-Role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RedshiftFederatedQueryRoleDDD29AF1"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPC92636AB0"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPublicSubnet1Subnet770D4FF2"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPublicSubnet1RouteTable17DA183D"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPublicSubnet1RouteTableAssociationE5186D77"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPublicSubnet1DefaultRoute6D26543F"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPublicSubnet1EIP4412F690"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPublicSubnet1NATGatewayC61D892B"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPublicSubnet2Subnet73F96DA9"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPublicSubnet2RouteTable3609F42C"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPublicSubnet2RouteTableAssociationB4B0A733"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPublicSubnet2DefaultRouteFEB062B2"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PublicSubnet2/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPublicSubnet2EIP5AAFF9FA"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PublicSubnet2/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPublicSubnet2NATGatewayB437CFAF"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPrivateSubnet1Subnet571D3690"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPrivateSubnet1RouteTableF6513BC2"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPrivateSubnet1RouteTableAssociation46F1FFFC"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPrivateSubnet1DefaultRouteD1B9E467"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPrivateSubnet2SubnetCC3D7013"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPrivateSubnet2RouteTable9AC81FAC"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPrivateSubnet2RouteTableAssociation336D47D1"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCPrivateSubnet2DefaultRoute52A1F245"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCIGWFA25CC08"
+          }
+        ],
+        "/KinesisFirehoseStack/TheVPC/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "TheVPCVPCGWC9B93E30"
+          }
+        ],
+        "/KinesisFirehoseStack/redshift": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "redshift"
           }
         ],
         "/KinesisFirehoseStack/CDKMetadata/Default": [

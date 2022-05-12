@@ -1,7 +1,7 @@
 {
   "version": "18.0.0",
   "files": {
-    "b6f840927e921cf953fe1ec5ade7660e16bd58126e5b43122fa74209296d67a4": {
+    "f97735b40ded3572db1b588ff1e96207aeb96a5f15422c62f3f28edd6f2c8e96": {
       "source": {
         "path": "KinesisFirehoseStack.template.json",
         "packaging": "file"
@@ -9,7 +9,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "b6f840927e921cf953fe1ec5ade7660e16bd58126e5b43122fa74209296d67a4.json",
+          "objectKey": "f97735b40ded3572db1b588ff1e96207aeb96a5f15422c62f3f28edd6f2c8e96.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }
